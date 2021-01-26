@@ -15,14 +15,15 @@
  */
 package sample.web;
 
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.stream.Collectors;
 
 /**
  * @author Joe Grandja
@@ -38,11 +39,13 @@ public class ServiceCController {
 		ServiceCallResponse serviceCallResponse = new ServiceCallResponse();
 		serviceCallResponse.setServiceName(SERVICE_C);
 		serviceCallResponse.setServiceUri(request.getRequestURL().toString());
-		serviceCallResponse.setJti(jwtAuthentication.getToken().getId());
-		serviceCallResponse.setSub(jwtAuthentication.getToken().getSubject());
-		serviceCallResponse.setAud(jwtAuthentication.getToken().getAudience());
-		serviceCallResponse.setAuthorities(jwtAuthentication.getAuthorities().stream()
-				.map(GrantedAuthority::getAuthority).sorted().collect(Collectors.toList()));
+		if (jwtAuthentication != null) {
+			serviceCallResponse.setJti(jwtAuthentication.getToken().getId());
+			serviceCallResponse.setSub(jwtAuthentication.getToken().getSubject());
+			serviceCallResponse.setAud(jwtAuthentication.getToken().getAudience());
+			serviceCallResponse.setAuthorities(jwtAuthentication.getAuthorities().stream()
+					.map(GrantedAuthority::getAuthority).sorted().collect(Collectors.toList()));
+		}
 
 		return serviceCallResponse;
 	}

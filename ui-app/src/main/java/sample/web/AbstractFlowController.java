@@ -15,6 +15,14 @@
  */
 package sample.web;
 
+import java.net.URI;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+
+import sample.config.ServicesConfig;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -23,12 +31,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
-import sample.config.ServicesConfig;
-
-import javax.servlet.http.HttpServletRequest;
-import java.net.URI;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
@@ -75,16 +77,17 @@ abstract class AbstractFlowController {
 											HttpServletRequest request,
 											ServiceCallResponse... serviceCallResponses) {
 
-		OidcUser oidcUser = (OidcUser) oauth2Authentication.getPrincipal();
-
 		ServiceCallResponse serviceCallResponse = new ServiceCallResponse();
 		serviceCallResponse.setServiceName(ServicesConfig.UI_APP);
 		serviceCallResponse.setServiceUri(request.getRequestURL().toString());
 		serviceCallResponse.setJti("(opaque to client)");
-		serviceCallResponse.setSub(oidcUser.getSubject());
-		serviceCallResponse.setAud(oidcUser.getAudience());
-		serviceCallResponse.setAuthorities(oauth2Authentication.getAuthorities().stream()
-				.map(GrantedAuthority::getAuthority).sorted().collect(Collectors.toList()));
+		if (oauth2Authentication != null) {
+			OidcUser oidcUser = (OidcUser) oauth2Authentication.getPrincipal();
+			serviceCallResponse.setSub(oidcUser.getSubject());
+			serviceCallResponse.setAud(oidcUser.getAudience());
+			serviceCallResponse.setAuthorities(oauth2Authentication.getAuthorities().stream()
+					.map(GrantedAuthority::getAuthority).sorted().collect(Collectors.toList()));
+		}
 		if (serviceCallResponses != null) {
 			serviceCallResponse.setServiceCallResponses(Arrays.asList(serviceCallResponses));
 		}

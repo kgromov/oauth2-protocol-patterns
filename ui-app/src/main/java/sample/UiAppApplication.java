@@ -15,15 +15,18 @@
  */
 package sample;
 
+import sample.config.ServicesConfig;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import sample.config.ServicesConfig;
 
 /**
  * @author Joe Grandja
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class, OAuth2ClientAutoConfiguration.class})
 @EnableConfigurationProperties(ServicesConfig.class)
 public class UiAppApplication {
 

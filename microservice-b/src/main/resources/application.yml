@@ -9,30 +9,6 @@ logging:
     org.springframework.security.oauth2: INFO
 #    org.springframework.boot.autoconfigure: DEBUG
 
-spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://auth-server:9000
-      client:
-        registration:
-          client-c-exchange:
-            provider: spring
-            client-id: client-c
-            client-secret: secret
-            authorization-grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
-            scope: authority-c
-          client-c:
-            provider: spring
-            client-id: client-c
-            client-secret: secret
-            authorization-grant-type: client_credentials
-            scope: authority-c
-        provider:
-          spring:
-            issuer-uri: http://auth-server:9000
-
 oauth2:
   resource:
     services:

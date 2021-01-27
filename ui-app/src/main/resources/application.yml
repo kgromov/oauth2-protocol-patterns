@@ -24,6 +24,12 @@ spring:
             client-secret: secret
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope: openid
+          client-abc:
+            provider: spring
+            client-id: client-abc
+            client-secret: secret
+            redirect-uri: "{baseUrl}/flow-abc"
+            scope: authority-a,authority-b,authority-c
         provider:
           spring:
             issuer-uri: http://auth-server:9000

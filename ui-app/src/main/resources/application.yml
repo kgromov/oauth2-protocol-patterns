@@ -9,6 +9,25 @@ logging:
     org.springframework.security.oauth2: INFO
 #    org.springframework.boot.autoconfigure: DEBUG
 
+spring:
+  thymeleaf:
+    cache: false
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+  security:
+    oauth2:
+      client:
+        registration:
+          login-client:
+            provider: spring
+            client-id: login-client
+            client-secret: secret
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid
+        provider:
+          spring:
+            issuer-uri: http://auth-server:9000
+
 oauth2:
   resource:
     services:

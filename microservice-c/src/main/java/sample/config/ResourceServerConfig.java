@@ -16,7 +16,6 @@
 package sample.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -31,15 +30,14 @@ public class ResourceServerConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .mvcMatcher("/service-b/**")
+            .mvcMatcher("/service-c/**")
             .authorizeRequests(authorizeRequests ->
                 authorizeRequests
-                    .mvcMatchers("/service-b/**").access("hasAuthority('SCOPE_authority-b')")
+                    .mvcMatchers("/service-c/**").access("hasAuthority('SCOPE_authority-c')")
                     .anyRequest().authenticated())
             .oauth2ResourceServer(oauth2ResourceServer ->
                 oauth2ResourceServer
-                    .jwt())
-            .oauth2Client(Customizer.withDefaults());
+                    .jwt());
         return http.build();
     }
     // @formatter:on

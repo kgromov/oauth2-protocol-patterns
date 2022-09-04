@@ -30,18 +30,6 @@ spring:
             client-secret: secret
             redirect-uri: "{baseUrl}/flow-a"
             scope: authority-a
-          client-ab:
-            provider: spring
-            client-id: client-ab
-            client-secret: secret
-            redirect-uri: "{baseUrl}/flow-ab"
-            scope: authority-a,authority-b
-          client-abc:
-            provider: spring
-            client-id: client-abc
-            client-secret: secret
-            redirect-uri: "{baseUrl}/flow-abc"
-            scope: authority-a,authority-b,authority-c
         provider:
           spring:
             issuer-uri: http://auth-server:9000

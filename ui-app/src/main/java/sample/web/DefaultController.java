@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * @author Joe Grandja
  */
-@Controller
+//@Controller
 public class DefaultController {
 
 	@GetMapping("/")

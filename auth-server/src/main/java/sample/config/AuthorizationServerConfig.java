@@ -100,7 +100,7 @@ public class AuthorizationServerConfig {
                 .build();
 
         return new InMemoryRegisteredClientRepository(
-                loginClient, clientA, clientAB, clientABC, clientC);
+                loginClient, clientA);
     }
     // @formatter:on
 

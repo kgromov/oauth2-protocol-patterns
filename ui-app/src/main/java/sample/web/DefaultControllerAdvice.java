@@ -43,7 +43,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * @author Joe Grandja
  */
-@ControllerAdvice
+//@ControllerAdvice
 public class DefaultControllerAdvice {
 	private ClientRegistrationRepository clientRegistrationRepository;
 	private OAuth2AuthorizedClientService authorizedClientService;

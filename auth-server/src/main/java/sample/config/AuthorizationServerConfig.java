@@ -46,14 +46,24 @@ public class AuthorizationServerConfig {
     // @formatter:off
     @Bean
     RegisteredClientRepository registeredClientRepository() {
-        RegisteredClient loginClient = RegisteredClient.withId(UUID.randomUUID().toString())
+        RegisteredClient gatewayClient = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("gateway-client")
+                .clientSecret("secret")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .redirectUri("http://localhost:8080/login/oauth2/code/gateway-client")
+                .scope(OidcScopes.OPENID)
+                .build();
+
+
+        /*RegisteredClient loginClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("login-client")
                 .clientSecret("secret")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .redirectUri("http://localhost:8080/login/oauth2/code/login-client")
                 .scope(OidcScopes.OPENID)
-                .build();
+                .build();*/
 
         RegisteredClient clientA = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("client-a")
@@ -99,8 +109,7 @@ public class AuthorizationServerConfig {
                 .scope("authority-c")
                 .build();
 
-        return new InMemoryRegisteredClientRepository(
-                loginClient, clientA, clientAB, clientABC, clientC);
+        return new InMemoryRegisteredClientRepository(gatewayClient, clientA, clientAB, clientABC, clientC);
     }
     // @formatter:on
 

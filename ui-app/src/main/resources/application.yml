@@ -18,12 +18,18 @@ spring:
     oauth2:
       client:
         registration:
-          login-client:
+          gateway-client:
             provider: spring
-            client-id: login-client
+            client-id: gateway-client
             client-secret: secret
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope: openid
+#          login-client:
+#            provider: spring
+#            client-id: login-client
+#            client-secret: secret
+#            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+#            scope: openid
           client-a:
             provider: spring
             client-id: client-a

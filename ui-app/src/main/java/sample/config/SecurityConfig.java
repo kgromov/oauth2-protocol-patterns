@@ -45,7 +45,7 @@ public class SecurityConfig {
 			)
 			.oauth2Login(oauth2Login ->
 				oauth2Login
-					.loginPage("/oauth2/authorization/login-client")
+					.loginPage("/oauth2/authorization/gateway-client")
 					.failureUrl("/login?error")
 					.permitAll())
 			.oauth2Client(withDefaults())

@@ -14,6 +14,8 @@ spring:
     cache: false
   jackson:
     date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+  main:
+    web-application-type: reactive
   security:
     oauth2:
       client:
@@ -24,27 +26,29 @@ spring:
             client-secret: secret
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope: openid
-          client-a:
-            provider: spring
-            client-id: client-a
-            client-secret: secret
-            redirect-uri: "{baseUrl}/flow-a"
-            scope: authority-a
-          client-ab:
-            provider: spring
-            client-id: client-ab
-            client-secret: secret
-            redirect-uri: "{baseUrl}/flow-ab"
-            scope: authority-a,authority-b
-          client-abc:
-            provider: spring
-            client-id: client-abc
-            client-secret: secret
-            redirect-uri: "{baseUrl}/flow-abc"
-            scope: authority-a,authority-b,authority-c
         provider:
           spring:
             issuer-uri: http://auth-server:9000
+  cloud:
+    gateway:
+      default-filters: TokenRelay
+      routes:
+        - id: service-a
+          uri: http://localhost:8090
+          predicates:
+            - Path=//service-a/**
+#          filters:
+#            - TokenRelay=
+        - id: service-b
+          uri: http://localhost:8091
+          predicates:
+            - Path=//service-b/**
+#          filters:
+#            - TokenRelay=
+        - id: default
+          uri: forward:/index.html
+          predicates:
+            - Path=/*
 
 oauth2:
   resource:

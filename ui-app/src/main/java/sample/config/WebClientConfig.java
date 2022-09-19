@@ -29,7 +29,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 /**
  * @author Joe Grandja
  */
-@Configuration
+//@Configuration
 public class WebClientConfig {
 
 	@Bean

@@ -55,7 +55,7 @@ public class AuthorizationServerConfig {
                 .scope(OidcScopes.OPENID)
                 .build();
 
-        RegisteredClient clientA = RegisteredClient.withId(UUID.randomUUID().toString())
+       /* RegisteredClient clientA = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("client-a")
                 .clientSecret("secret")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
@@ -97,10 +97,9 @@ public class AuthorizationServerConfig {
                 .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .scope("authority-c")
-                .build();
+                .build();*/
 
-        return new InMemoryRegisteredClientRepository(
-                loginClient, clientA, clientAB, clientABC, clientC);
+        return new InMemoryRegisteredClientRepository(loginClient);
     }
     // @formatter:on
 

@@ -16,18 +16,17 @@
 package sample.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.web.server.SecurityWebFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 /**
  * @author Joe Grandja
  */
-@EnableWebSecurity
+@EnableWebFluxSecurity
 public class SecurityConfig {
 
 	@Bean
@@ -37,20 +36,10 @@ public class SecurityConfig {
 
 	// @formatter:off
 	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http
-			.authorizeRequests(authorizeRequests ->
-				authorizeRequests
-					.anyRequest().authenticated()
-			)
-			.oauth2Login(oauth2Login ->
-				oauth2Login
-					.loginPage("/oauth2/authorization/login-client")
-					.failureUrl("/login?error")
-					.permitAll())
-			.oauth2Client(withDefaults())
-			.logout(AbstractHttpConfigurer::disable);
-		return http.build();
+	SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) throws Exception {
+		return http.authorizeExchange(exchange -> exchange.anyExchange().authenticated())
+				.oauth2Login(withDefaults())
+				.build();
 	}
 	// @formatter:on
 

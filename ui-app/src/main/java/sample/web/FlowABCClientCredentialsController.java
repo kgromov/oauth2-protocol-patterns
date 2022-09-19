@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * @author Joe Grandja
  */
-@Controller
+//@Controller
 @RequestMapping(path = "/flow-abc", params = {"flowType=client_credentials"})
 public class FlowABCClientCredentialsController extends AbstractFlowController {
 	private static final String FLOW_TYPE_CLIENT_CREDENTIALS = "client_credentials";

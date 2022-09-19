@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * @author Joe Grandja
  */
-@Controller
+//@Controller
 @RequestMapping(path = "/flow-abc", params = {"flowType=token_exchange"})
 public class FlowABCTokenExchangeController extends AbstractFlowController {
 	private static final String FLOW_TYPE_TOKEN_EXCHANGE = "token_exchange";

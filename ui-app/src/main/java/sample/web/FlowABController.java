@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * @author Joe Grandja
  */
-@Controller
+//@Controller
 @RequestMapping("/flow-ab")
 public class FlowABController extends AbstractFlowController {
 

@@ -33,7 +33,7 @@ public class ResourceServerConfig {
 			.mvcMatcher("/service-a/**")
 			.authorizeRequests(authorizeRequests ->
 				authorizeRequests
-					.mvcMatchers("/service-a/**").access("hasAuthority('SCOPE_authority-a')")
+//					.mvcMatchers("/service-a/**").access("hasAuthority('SCOPE_authority-a')")
 					.anyRequest().authenticated())
 			.oauth2ResourceServer()
 				.jwt();

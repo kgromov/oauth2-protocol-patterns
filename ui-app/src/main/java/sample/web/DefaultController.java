@@ -29,7 +29,7 @@ import java.util.Map;
 @Controller
 public class DefaultController {
 
-	@GetMapping("/")
+	@GetMapping("/index")
 	public String index() {
 		return "index";
 	}

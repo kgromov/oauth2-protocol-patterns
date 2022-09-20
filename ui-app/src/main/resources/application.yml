@@ -36,19 +36,19 @@ spring:
         - id: service-a
           uri: http://localhost:8090
           predicates:
-            - Path=//service-a/**
+            - Path=/service-a/**
 #          filters:
 #            - TokenRelay=
         - id: service-b
           uri: http://localhost:8091
           predicates:
-            - Path=//service-b/**
+            - Path=/service-b/**
 #          filters:
 #            - TokenRelay=
         - id: default
           uri: forward:/index.html
           predicates:
-            - Path=/*
+            - Path=/index/**
 
 oauth2:
   resource:
